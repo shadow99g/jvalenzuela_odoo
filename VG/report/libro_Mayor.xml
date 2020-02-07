@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="libromayor_pdf" name="_get_report_values">
+            <t t-call="web.basic_layout">
+                <div class="header">
+                </div>
+                <div class="page">
+                    <div>
+                        <table class="table table-bordered">
+                            <t t-set="total_debit" t-value="0.0"/>
+                            <t t-set="total_credit" t-value="0.0"/>
+                            <thead>
+                                <tr>
+                                    <th style="font-size:small;text-align: center;" colspan="5">FORMATO 6.1:
+                                        "LIBRO MAYOR"
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3">CODIGO Y/O DENOMINACIÓN DE LA CUENTA CONTABLE</th>
+                                    <th colspan="2">
+                                        <t t-esc="104001"/>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th rowspan="2">FECHA DE LA OPERACION</th>
+                                    <th rowspan="2">NUMERO CORRELATIVO DEL LIBRO DIARIO</th>
+                                    <th class="col-sm-2" rowspan="2">DESCRIPCION O GLOSA DE LA OPERACION
+                                    </th>
+                                    <th colspan="2">SALDOS Y MOVIMIENTOS</th>
+                                </tr>
+                                <tr>
+                                    <th>DEUDOR</th>
+                                    <th>ACREEDOR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="line" t-as="o">
+                                    <tr>
+                                        <td>
+                                            <t t-esc="o.move_id.name"/>
+                                        </td>
+                                        <td>
+                                            <!--<t t-if="o.move_id.dummy_account_id.code == '104001'"-->
+                                            <!--t-esc="libro.move_id.name"/>-->
+                                            <!--<t t-esc="o.date"/>-->
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <!--<t t-if="o.move_id.dummy_account_id.code == '104001'"-->
+                                            <!--t-esc="libro.debit"/>-->
+                                            <!--<t t-esc="o.debit"/>-->
+                                        </td>
+                                        <td>
+                                            <!--<t t-if="o.move_id.dummy_account_id.code == '104001'"-->
+                                            <!--t-esc="libro.credit"/>-->
+                                            <!--<t t-esc="o.debit"/>-->
+                                        </td>
+                                    </tr>
+                                    <!--<t t-set="total_debit" t-value="total_debit + libro.debit"/>-->
+                                    <!--<t t-set="total_credit" t-value="total_credit + libro.credit"/>-->
+                                    <!--</t>-->
+                                    <th style="text-align: right" colspan="3">TOTALES(S/.)</th>
+                                    <th>
+                                        <!--<t t-set="current_subtotal"/>-->
+                                        <!--<t t-foreach="o.move_id.line_ids['debit']" t-as="row">-->
+                                        <!--<t t-set="cost" t-value="cost + row[0]"/>-->  <!--</t>-->
+                                        <!--<span t-esc="cost"/>-->
+                                        <!--<t t-esc="total_debit"/>-->
+                                    </th>
+                                    <th>
+                                        <!--<t t-esc="total_credit"/>-->
+                                    </th>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </t>
+            <!--</t>-->
+            <!--<template id="libromayor_pdf_template" name="libreria.report_sample">-->
+            <!--<t t-call="web.html_container">-->
+            <!--<t t-foreach="lines" t-as="line">-->
+            <!--<t t-call="VG.libromayor_pdf"/>-->
+            <!--</t>-->
+            <!--</t>-->
+            <!--</template>-->
+            <!--<template id="libromayor_pdf_template" inherit_id="VG.libromayor_pdf" primary="True"/>-->
+        </template>
+    </data>
+</odoo>

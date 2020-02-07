@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="Asiento_contable_pdf">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+
+                        <div class="header">
+
+                        </div>
+                        <div class="page">
+                            <table class="table table-bordered">
+                                <t t-set="total_debit" t-value="0.0"/>
+                                <t t-set="total_credit" t-value="0.0"/>
+                                <thead>
+                                    <tr>
+                                        <th style="font-size:small;text-align: center;" colspan="10">FORMATO 5.1:
+                                            "LIBRO DIARIO"
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <th rowspan="2" style="text-align: center;">NÚMERO CORRELATIVO DEL ASIENTO
+                                            CONTABLE O CÓDIGO ÚNICO DE LA OPERACIÓN
+                                        </th>
+                                        <th rowspan="2" style="text-align: center;">FECHA DE LA OPERACIÓN</th>
+                                        <th class="col-sm-2" rowspan="2" style="text-align: center;">GLOSA O DESCRIPCIÓN
+                                            DE LA OPERACIÓN
+                                        </th>
+                                        <th colspan="3" style="text-align: center;">REFERENCIA DE LA OPERACION</th>
+                                        <th colspan="2" style="text-align: center;">CUENTA CONTABLE ASOCIADA A LA
+                                            OPERACIÓN
+                                        </th>
+                                        <th colspan="2" style="text-align: center;">MOVIMIENTO</th>
+                                    </tr>
+                                    <tr>
+                                        <th style="text-align: center;">CODIGO DEL LIBRO O REGISTRO</th>
+                                        <th style="text-align: center;">NÚMERO CORRELATIVO</th>
+                                        <th style="text-align: center;">NÚMERO DEL DOCUMENTO SUSTENTATORIO</th>
+                                        <th style="text-align: center;">CODIGO</th>
+                                        <th style="text-align: center;">DENOMINACIÓN</th>
+                                        <th style="text-align: center;">DEBE</th>
+                                        <th style="text-align: center;">HABER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.line_ids" t-as="diario">
+                                        <tr>
+                                            <td>
+                                                <t t-esc="diario.move_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="diario.move_id.date"/>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-esc="o.invoice_id.type"/>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                            <td>
+                                                <t t-esc="o.invoice_id.invoice_serie"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="diario.account_id.code"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="diario.account_id.name"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="diario.debit"/>
+                                            </td>
+                                            <td>
+                                                <t t-esc="diario.credit"/>
+                                            </td>
+                                            <t t-set="total_debit" t-value="total_debit + diario.debit"/>
+                                            <t t-set="total_credit" t-value="total_credit + diario.credit"/>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                                <th style="text-align: right" colspan="8">TOTALES(S/.)</th>
+                                <th>
+                                    <t t-esc="total_debit"/>
+                                </th>
+                                <th>
+                                    <t t-esc="total_credit"/>
+                                </th>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="Report_asiento">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="VG.Asiento_contable_pdf"/>
+
+                </t>
+
+            </t>
+
+
+        </template>
+
+    </data>
+</odoo>

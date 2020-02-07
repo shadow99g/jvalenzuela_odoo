@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="libromayor"
+                string="Libro Mayor 104001"
+                model="account.move.line"
+                report_type="qweb-pdf"
+                name="VG.Report_Demo"
+                file="VG.Report_Demo"
+        />
+
+        <report
+                id="asientocontable"
+                string="Asientos Contables"
+                model="account.move"
+                report_type="qweb-pdf"
+                name="VG.Report_asiento"
+                file="VG.Report_asiento"
+        />
+
+        <report id="student_status_on_probation"
+                string="Libro Mayor"
+                model="account.move.line"
+                report_type="qweb-html"
+                name="VG.libromayor_pdf"
+                file="VG.first_report_method"
+
+        />
+
+
+        <!--bton para el reporte Libro Mayor-->
+
+        <record id="libromayor_pdf_report" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='open_reconcile_view']" position="after">
+                    <button name="VG.student_status_on_probation" type="action"
+                            class="oe_stat_button" icon="fa-circle-o" string="Libro Mayor">
+                    </button>
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+</odoo>
